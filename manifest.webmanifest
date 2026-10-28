@@ -1,0 +1,14 @@
+{
+  "name": "Nanny Dog — cuidado que parece casa",
+  "short_name": "Nanny Dog",
+  "description": "Encontre babás de cachorro de confiança que respeitam a rotina, o jeitinho e as necessidades do seu melhor amigo.",
+  "lang": "pt-BR",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFFBF3",
+  "theme_color": "#C85A32",
+  "icons": [
+    { "src": "assets/img/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
