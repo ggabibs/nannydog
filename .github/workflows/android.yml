@@ -64,9 +64,12 @@ jobs:
           python3 - <<'PY'
           import pathlib
           p = pathlib.Path('gradle.log')
-          lines = p.read_text(errors='replace').splitlines()[-80:] if p.exists() else ['(sem log)']
+          raw = p.read_text(errors='replace').splitlines() if p.exists() else ['(sem log)']
+          clean = [l for l in raw if not l.lstrip().startswith('at ')]
+          start = next((i for i, l in enumerate(clean) if 'FAILURE' in l or 'What went wrong' in l), max(0, len(clean) - 60))
+          lines = clean[start:start + 70]
           msg = '\n'.join(lines).replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
-          print(f"::error title=Log do Gradle (fim)::{msg}")
+          print(f"::error title=Erro do Gradle::{msg}")
           PY
 
       - name: Renomear o APK
