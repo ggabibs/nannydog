@@ -42,7 +42,19 @@ O mesmo site vira app Android com [Capacitor](https://capacitorjs.com/) (pasta `
 
 **Instalar no celular:** abra o arquivo `NannyDog.apk` baixado e, se o Android pedir, permita "instalar apps de fontes desconhecidas" para o navegador/gerenciador de arquivos. É um APK de depuração (debug), ótimo para testar; para publicar na Play Store um dia, será preciso gerar a versão *release* assinada (AAB).
 
-**Gerar um APK novo:** qualquer push na `main` dispara a compilação automática (GitHub Actions, `.github/workflows/android.yml`). Também dá para rodar manualmente em **Actions → 📱 Gerar APK Android → Run workflow**. Localmente (com Node + JDK 17 + Android SDK): `npm install && npm run android:apk`.
+**Gerar um APK novo:** qualquer push na `main` dispara a compilação automática (GitHub Actions, `.github/workflows/android.yml`). Também dá para rodar manualmente em **Actions → 📱 Gerar APK Android → Run workflow**. Localmente (com Node 22 + JDK 21 + Android SDK): `npm install && npm run android:apk`.
+
+## 🍎 E no iPhone (iOS)?
+
+APK não funciona no iOS (é só Android), mas o Nanny Dog instala no iPhone como **web app (PWA)**, com ícone na tela inicial e abertura em tela cheia:
+
+1. Abra **https://ggabibs.github.io/nannydog/** no **Safari**
+2. Toque em **Compartilhar** (quadradinho com seta ↑)
+3. Toque em **"Adicionar à Tela de Início"** → **Adicionar**
+
+Pronto: o ícone "Nanny Dog" aparece junto dos apps e abre sem a barra do navegador (inclusive a área do administrador funciona). No iPhone, o próprio site mostra um lembrete com esse passo a passo na primeira visita.
+
+> Um app iOS "nativo" (arquivo `.ipa` / App Store) também seria possível com o Capacitor, mas a Apple exige um **Mac com Xcode** e a assinatura **Apple Developer (US$ 99/ano)** para distribuir via TestFlight/App Store. Sem isso, só instalações temporárias de desenvolvedor. Para o público geral, o caminho gratuito e recomendado no iOS é o PWA acima.
 
 ## 📱 Pensado para mobile
 

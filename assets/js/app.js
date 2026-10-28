@@ -525,6 +525,30 @@ function init() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(() => { /* ambiente sem SW */ });
   }
+
+  maybeShowIOSInstallBanner();
+}
+
+/* iPhone/iPad: a Safari não mostra o convite de instalar sozinha,
+   então ensinamos o caminho num bannerzinho (uma vez, dispensável). */
+function maybeShowIOSInstallBanner() {
+  const ua = navigator.userAgent || '';
+  const isIOS = /iphone|ipad|ipod/i.test(ua) || (ua.includes('Macintosh') && navigator.maxTouchPoints > 1);
+  const isStandalone = window.navigator.standalone === true
+    || window.matchMedia('(display-mode: standalone)').matches;
+  if (!isIOS || isStandalone || store.get('ios_install_dismissed', false)) return;
+  const banner = document.createElement('div');
+  banner.className = 'ios-banner';
+  banner.setAttribute('role', 'note');
+  banner.innerHTML = `
+    <strong>🐾 Instale o Nanny Dog no iPhone</strong>
+    Toque em <b>Compartilhar</b> (↑) e depois em <b>“Adicionar à Tela de Início”</b>.
+    <button type="button" aria-label="Fechar aviso">✕</button>`;
+  banner.querySelector('button').addEventListener('click', () => {
+    store.set('ios_install_dismissed', true);
+    banner.remove();
+  });
+  document.body.appendChild(banner);
 }
 
 init();
