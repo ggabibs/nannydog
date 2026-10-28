@@ -1,0 +1,58 @@
+name: 📱 Gerar APK Android
+
+# Compila o app Android (Capacitor) automaticamente.
+# O APK pronto fica em: Actions → esta execução → Artifacts → "NannyDog-APK"
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-apk:
+    name: Compilar APK (debug, instalável)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Instalar Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
+
+      - name: Instalar dependências do projeto
+        run: npm ci
+
+      - name: Montar o site e sincronizar com o Android
+        run: npm run cap:sync
+
+      - name: Compilar o APK
+        working-directory: android
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Renomear o APK
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk NannyDog.apk
+
+      - name: Publicar o APK como artefato baixável
+        uses: actions/upload-artifact@v4
+        with:
+          name: NannyDog-APK
+          path: NannyDog.apk
+          if-no-files-found: error
+          retention-days: 90

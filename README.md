@@ -18,6 +18,32 @@ Site **mobile-first** (desenhado primeiro para o celular, com navegação inferi
 
 Favoritos ❤️, reservas e a conta ficam salvos no próprio aparelho (`localStorage`) — esta é uma **versão demonstrativa**, sem servidor: nenhuma informação sai do celular do visitante.
 
+## 🔐 Área do administrador
+
+Acesse **`#/admin`** (ou o link "Área do administrador" no rodapé) e entre com o e-mail da administradora, `maria.barbosa.sales@escola.pr.gov.br`, e a senha definida por ela (a senha **não** está escrita no código — apenas o hash SHA-256 dela, em `assets/js/admin.js`).
+
+No painel dá para:
+
+- Ver um resumo (babás ativas, reservas, valores)
+- **Editar** babás (nome, bairro, etiquetas, preços, mostrar/ocultar na loja) e **cadastrar novas babás** (com foto do celular)
+- **Gerenciar reservas** (marcar como confirmada/cancelada)
+- Baixar uma cópia dos dados (JSON), restaurar as babás originais ou limpar as reservas
+
+> ⚠️ Como o app não tem servidor, o login do admin é uma **trava de tela demonstrativa** e as edições valem **só no aparelho/navegador onde foram feitas**. Para um painel de verdade (valendo para todos os visitantes), o próximo passo é ligar um backend (ex.: Supabase/Firebase).
+
+## 📱 App Android (APK)
+
+O mesmo site vira app Android com [Capacitor](https://capacitorjs.com/) (pasta `android/`, pacote `com.nannydog.app`).
+
+**Baixar o APK pronto (sem instalar nada):**
+
+1. Aba **Releases** deste repositório → baixe o `NannyDog.apk` da versão mais recente; **ou**
+2. Aba **Actions** → última execução de *"📱 Gerar APK Android"* → **Artifacts → NannyDog-APK**
+
+**Instalar no celular:** abra o arquivo `NannyDog.apk` baixado e, se o Android pedir, permita "instalar apps de fontes desconhecidas" para o navegador/gerenciador de arquivos. É um APK de depuração (debug), ótimo para testar; para publicar na Play Store um dia, será preciso gerar a versão *release* assinada (AAB).
+
+**Gerar um APK novo:** qualquer push na `main` dispara a compilação automática (GitHub Actions, `.github/workflows/android.yml`). Também dá para rodar manualmente em **Actions → 📱 Gerar APK Android → Run workflow**. Localmente (com Node + JDK 17 + Android SDK): `npm install && npm run android:apk`.
+
 ## 📱 Pensado para mobile
 
 - Layout mobile-first, botões grandes (mín. 48px) e navegação inferior fixa com `safe-area` (iPhone com notch)
@@ -45,13 +71,18 @@ python3 -m http.server 8000
 ## 📂 Estrutura
 
 ```
-├── index.html              # todas as telas (SPA por hash: #/buscar, #/baba/mariana …)
+├── index.html              # todas as telas (SPA por hash: #/buscar, #/baba/mariana, #/admin …)
 ├── manifest.webmanifest    # PWA (nome, cores, ícone)
 ├── sw.js                   # cache offline básico
-└── assets/
-    ├── css/style.css       # design mobile-first (creme, terracota, mostarda)
-    ├── js/app.js           # dados das babás, rotas, busca, reservas, conta
-    └── img/                # fotos e ícone
+├── assets/
+│   ├── css/style.css       # design mobile-first (creme, terracota, mostarda)
+│   ├── js/app.js           # loja: rotas, busca, reservas, conta
+│   ├── js/admin.js         # área do administrador (login por hash + painel)
+│   └── img/                # fotos e ícone
+├── android/                # projeto Android (Capacitor) → gera o APK
+├── capacitor.config.json   # nome/pacote do app (com.nannydog.app)
+├── scripts/build-www.mjs   # copia o site para www/ (o que vai dentro do APK)
+└── .github/workflows/android.yml  # compila o APK automaticamente no GitHub
 ```
 
 Para editar as babás (nomes, bairros, preços, fotos), altere a lista `SITTERS` no início de `assets/js/app.js`.

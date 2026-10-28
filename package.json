@@ -1,0 +1,18 @@
+{
+  "name": "nannydog",
+  "version": "1.0.0",
+  "description": "Nanny Dog — cuidado que parece casa (site + app Android via Capacitor)",
+  "private": true,
+  "scripts": {
+    "build:www": "node scripts/build-www.mjs",
+    "cap:sync": "npm run build:www && cap sync android",
+    "android:apk": "npm run cap:sync && cd android && ./gradlew assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/core": "^8.6.0"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^8.6.0",
+    "@capacitor/cli": "^8.6.0"
+  }
+}

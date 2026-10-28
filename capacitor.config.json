@@ -1,0 +1,11 @@
+{
+  "appId": "com.nannydog.app",
+  "appName": "Nanny Dog",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "backgroundColor": "#FFFBF3"
+  }
+}
