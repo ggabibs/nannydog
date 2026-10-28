@@ -91,7 +91,16 @@ const store = {
   del: (k) => { try { localStorage.removeItem('nd_' + k); } catch { /* ignore */ } },
 };
 const minPrice = (s) => Math.min(...Object.values(s.prices));
-const byId = (id) => SITTERS.find((s) => s.id === id);
+
+/* As babás podem ser editadas no painel do administrador (admin.js).
+   A lista editada fica salva no aparelho; sem ela, usa a padrão (SITTERS). */
+function getSitters(includeInactive = false) {
+  const saved = store.get('sitters', null);
+  const base = Array.isArray(saved) && saved.length ? saved : SITTERS;
+  return includeInactive ? base : base.filter((s) => s.active !== false);
+}
+function saveSitters(list) { store.set('sitters', list); }
+const byId = (id) => getSitters(true).find((s) => s.id === id);
 
 let toastTimer;
 function toast(msg) {
@@ -164,13 +173,13 @@ function sitterCardHTML(s) {
 
 /* ---------- Render: início ---------- */
 function renderFeatured() {
-  const featured = [...SITTERS].sort((a, b) => b.rating - a.rating || b.reviews - a.reviews).slice(0, 4);
+  const featured = [...getSitters()].sort((a, b) => b.rating - a.rating || b.reviews - a.reviews).slice(0, 4);
   $('#featured-list').innerHTML = featured.map(miniCardHTML).join('');
 }
 
 /* ---------- Render: buscar ---------- */
 function renderSearch() {
-  let list = SITTERS.filter((s) => {
+  let list = getSitters().filter((s) => {
     const matchesService = searchState.service === 'todos' || s.prices[searchState.service];
     const q = searchState.q.trim().toLowerCase();
     const matchesQ = !q || s.name.toLowerCase().includes(q) || s.neighborhood.toLowerCase().includes(q) || s.tags.join(' ').toLowerCase().includes(q);
@@ -220,7 +229,9 @@ function renderSitter(id) {
     </section>
     <section class="detail-section"><h2>Serviços e preços</h2><div class="price-list">${prices}</div></section>
     <section class="detail-section"><h2>O que dizem os tutores</h2>
-      ${s.reviewsList.map((r) => `<div class="review"><span class="stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</span><p>“${esc(r.text)}”</p><footer>${esc(r.author)}</footer></div>`).join('')}
+      ${s.reviewsList && s.reviewsList.length
+        ? s.reviewsList.map((r) => `<div class="review"><span class="stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</span><p>“${esc(r.text)}”</p><footer>${esc(r.author)}</footer></div>`).join('')
+        : '<p>Ainda sem avaliações — seja o primeiro tutor a avaliar! 💛</p>'}
     </section>`;
   bindFavButtons($('#sitter-detail'));
   const bar = $('#book-bar');
@@ -334,7 +345,7 @@ function renderBookings() {
       <div class="booking-card-head">
         <img src="${s.photo}" alt="Foto de ${esc(s.name)}">
         <div><strong>${esc(s.name)}</strong><span>${SERVICES[b.service].label} · ${esc(s.neighborhood)}</span></div>
-        <span class="status">Aguardando confirmação</span>
+        <span class="status status-${esc(b.status || 'pendente')}">${({ pendente: 'Aguardando confirmação', confirmada: '✅ Confirmada', cancelada: 'Cancelada' })[b.status || 'pendente'] || 'Aguardando confirmação'}</span>
       </div>
       <dl class="booking-meta">
         <div><dt>Cachorro</dt><dd>${esc(b.pet)} (${esc(b.breed)})</dd></div>
@@ -435,7 +446,7 @@ function renderProfile() {
 }
 
 /* ---------- Roteador ---------- */
-const ROUTES = ['inicio', 'buscar', 'baba', 'reservar', 'sucesso', 'reservas', 'entrar', 'perfil'];
+const ROUTES = ['inicio', 'buscar', 'baba', 'reservar', 'sucesso', 'reservas', 'entrar', 'perfil', 'admin'];
 function parseHash() {
   const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
   const route = ROUTES.includes(parts[0]) ? parts[0] : 'inicio';
@@ -462,6 +473,7 @@ function router() {
   if (route === 'sucesso') renderSuccess();
   if (route === 'reservas') renderBookings();
   if (route === 'perfil') renderProfile();
+  if (route === 'admin' && typeof renderAdmin === 'function') renderAdmin();
 
   window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
 }

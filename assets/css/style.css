@@ -495,3 +495,29 @@ input:focus, select:focus, textarea:focus { border-color: var(--brand); backgrou
   * { animation: none !important; transition: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* ---------- Área do administrador ---------- */
+.admin-link { color: var(--muted); text-decoration: underline dotted; }
+.admin-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 14px; text-align: center; }
+.stat strong { display: block; font-size: 22px; color: var(--brand-dark); }
+.stat span { font-size: 12.5px; color: var(--muted); font-weight: 700; }
+.admin-block { margin-top: 30px; }
+.admin-block h2 { font-size: 23px; margin-bottom: 14px; }
+.admin-sitter { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden; }
+.admin-sitter[data-off="1"] { opacity: .62; }
+.admin-sitter summary { display: flex; align-items: center; gap: 12px; padding: 12px 14px; cursor: pointer; list-style: none; min-height: 56px; }
+.admin-sitter summary::-webkit-details-marker { display: none; }
+.admin-sitter summary img { width: 46px; height: 46px; border-radius: 12px; object-fit: cover; flex: none; }
+.admin-sitter-name { font-weight: 800; font-size: 15.5px; display: flex; flex-direction: column; }
+.admin-sitter-name small { color: var(--muted); font-weight: 700; font-size: 12.5px; }
+.off-tag { color: var(--danger) !important; text-transform: uppercase; letter-spacing: .5px; }
+.admin-sitter form { padding: 4px 14px 16px; }
+.check { display: flex !important; flex-direction: row; align-items: center; gap: 10px; font-weight: 800; }
+.check input { width: 22px; height: 22px; min-height: 22px; flex: none; accent-color: var(--brand); }
+.admin-booking { display: flex; gap: 12px; align-items: center; justify-content: space-between; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 13px 14px; margin-bottom: 10px; font-size: 14.5px; }
+.admin-booking small { color: var(--muted); }
+.admin-booking select { width: auto; flex: none; min-height: 44px; padding: 8px 10px; }
+.status-confirmada { background: var(--sage-soft); color: var(--sage); }
+.status-cancelada { background: #f6ddd5; color: var(--danger); }
+@media (min-width: 560px) { .admin-stats { grid-template-columns: repeat(4, 1fr); } }

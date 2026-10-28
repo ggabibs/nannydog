@@ -1,0 +1,5 @@
+# Dependências e saídas de build (o APK é publicado como Release, fora do git)
+node_modules/
+www/
+dist-apk/
+*.apk
