@@ -9,7 +9,7 @@ on:
   pull_request:
 
 permissions:
-  contents: read
+  contents: write # necessário para publicar o APK em Releases (só na main)
 
 jobs:
   build-apk:
@@ -82,3 +82,18 @@ jobs:
           path: NannyDog.apk
           if-no-files-found: error
           retention-days: 90
+
+      - name: Publicar o APK em Releases (link direto, só na main)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh release create v1.0.0 NannyDog.apk \
+            --title "Nanny Dog — app Android v1.0.0" \
+            --notes "📱 **App Android da Nanny Dog** (APK de testes, gerado automaticamente a cada atualização da main).
+
+          **Como instalar:** baixe o \`NannyDog.apk\` aqui embaixo, abra o arquivo no celular e, se o Android pedir, permita \"instalar apps de fontes desconhecidas\".
+
+          Inclui a loja completa + área do administrador (\`#/admin\`)." \
+          || gh release upload v1.0.0 NannyDog.apk --clobber
