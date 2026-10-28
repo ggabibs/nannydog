@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nanny Dog — cuidado que parece casa</title>
+  <meta name="description" content="Quando você sai, ele fica em casa. Encontre babás de cachorro de confiança que respeitam a rotina, o jeitinho e as necessidades do seu melhor amigo.">
+  <meta name="theme-color" content="#C85A32">
+  <link rel="icon" href="assets/img/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/icon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta property="og:title" content="Nanny Dog — cuidado que parece casa">
+  <meta property="og:description" content="Quando você sai, ele fica em casa. Babás de cachorro para estadias, passeios e visitas.">
+  <meta property="og:image" content="assets/img/hero.jpg">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,650;1,9..144,500;1,9..144,650&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ===== Ícones SVG ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-logo" viewBox="0 0 96 96">
+        <path d="M48 10 12 41c-2.4 2.1-1.1 6.5 2.1 6.5H19V79c0 3.6 2.9 6.5 6.5 6.5h45c3.6 0 6.5-2.9 6.5-6.5V47.5h4.9c3.2 0 4.5-4.4 2.1-6.5L48 10z" fill="currentColor"/>
+        <g fill="#FFF6EA"><ellipse cx="48" cy="69" rx="11" ry="9"/><ellipse cx="34" cy="57" rx="4.6" ry="6" transform="rotate(-18 34 57)"/><ellipse cx="43" cy="51" rx="4.8" ry="6.4" transform="rotate(-6 43 51)"/><ellipse cx="53" cy="51" rx="4.8" ry="6.4" transform="rotate(6 53 51)"/><ellipse cx="62" cy="57" rx="4.6" ry="6" transform="rotate(18 62 57)"/></g>
+      </symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 10.5 12 3l9 7.5M5 9.5V21h14V9.5M9.5 21v-6h5v6"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></g></symbol>
+      <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="16" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.4-3.4 4.2-5 7.5-5s6.1 1.6 7.5 5"/></g></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 20.7C5.9 16.9 3 13.4 3 9.7 3 7 5 5 7.6 5c1.7 0 3.4.9 4.4 2.4C13 5.9 14.7 5 16.4 5 19 5 21 7 21 9.7c0 3.7-2.9 7.2-9 11z"/></symbol>
+      <symbol id="i-heart-f" viewBox="0 0 24 24"><path fill="currentColor" d="M12 20.7C5.9 16.9 3 13.4 3 9.7 3 7 5 5 7.6 5c1.7 0 3.4.9 4.4 2.4C13 5.9 14.7 5 16.4 5 19 5 21 7 21 9.7c0 3.7-2.9 7.2-9 11z"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></g></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.5 5 5 10-11"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 5 5.8v5.4c0 4.6 3 7.7 7 9.8 4-2.1 7-5.2 7-9.8V5.8z"/><path d="m9 11.6 2.2 2.2L15.4 9.6" stroke-linecap="round"/></g></symbol>
+      <symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h3l2-2.5h6L17 8h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="14" r="3.4"/></g></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M21 12a8 8 0 0 1-8 8H4l2.2-3.2A8 8 0 1 1 21 12z"/></symbol>
+      <symbol id="i-back" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M14.5 5 7.5 12l7 7"/></symbol>
+      <symbol id="i-paw" viewBox="0 0 24 24"><g fill="currentColor"><ellipse cx="12" cy="16.5" rx="4.6" ry="3.9"/><ellipse cx="5.4" cy="11.5" rx="1.9" ry="2.5" transform="rotate(-18 5.4 11.5)"/><ellipse cx="9.3" cy="8.2" rx="2" ry="2.7" transform="rotate(-6 9.3 8.2)"/><ellipse cx="14.7" cy="8.2" rx="2" ry="2.7" transform="rotate(6 14.7 8.2)"/><ellipse cx="18.6" cy="11.5" rx="1.9" ry="2.5" transform="rotate(18 18.6 11.5)"/></g></symbol>
+      <symbol id="i-bed" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 18h18M3 21v-3M21 21v-3M6 10V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3"/></g></symbol>
+      <symbol id="i-walk" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4.5" r="1.8" fill="currentColor" stroke="none"/><path d="M13 8 10 12.5 8 21M10 12.5 13.5 15 15 21M13 8l2.8 2L19 11M10 12.5 6.8 14 4 13"/></g></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ===== Topbar ===== -->
+  <header class="topbar">
+    <a class="brand" href="#/inicio" aria-label="Nanny Dog — início">
+      <svg class="brand-mark"><use href="#i-logo"/></svg>
+      <span class="brand-name">Nanny Dog <em>.</em></span>
+    </a>
+    <nav class="topnav" aria-label="Navegação principal">
+      <a href="#/inicio" data-nav="inicio">Início</a>
+      <a href="#/buscar" data-nav="buscar">Encontrar uma babá</a>
+      <a href="#/reservas" data-nav="reservas">Minhas reservas</a>
+      <a class="btn btn-small btn-primary" href="#/entrar" data-nav="entrar" id="topbar-cta">Entrar</a>
+    </nav>
+  </header>
+
+  <main id="app">
+
+    <!-- ========== TELA: INÍCIO ========== -->
+    <section class="screen" data-screen="inicio">
+      <div class="hero wrap">
+        <div class="hero-text">
+          <span class="eyebrow"><svg class="ic"><use href="#i-paw"/></svg> cuidado que parece casa</span>
+          <h1>Quando você sai, ele fica em <em>casa.</em></h1>
+          <p class="lead">Encontre pessoas cuidadoras de confiança que respeitam a rotina, o jeitinho e as necessidades do seu cachorro.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary btn-big" href="#/buscar">Encontrar uma babá</a>
+            <a class="btn btn-ghost btn-big" href="#/entrar">Já tenho conta</a>
+          </div>
+          <p class="hero-note">Para estadias, passeios e visitas que deixam a sua rotina — e a dele — mais tranquila.</p>
+        </div>
+
+        <figure class="hero-media">
+          <img src="assets/img/hero.jpg" alt="Cachorro e babá em uma sala clara e acolhedora" width="768" height="1152" fetchpriority="high">
+          <div class="hero-badge">
+            <span class="hero-badge-tag"><svg class="ic"><use href="#i-shield"/></svg> um lugar seguro</span>
+            <strong>Afeto, passeio e descanso na medida certa.</strong>
+          </div>
+          <figcaption>Cuidado combinado com a rotina do seu melhor amigo.</figcaption>
+        </figure>
+      </div>
+
+      <div class="wrap">
+        <ul class="trust">
+          <li><svg class="ic"><use href="#i-shield"/></svg><span><strong>Babás verificadas</strong><small>identidade e referências conferidas</small></span></li>
+          <li><svg class="ic"><use href="#i-camera"/></svg><span><strong>Fotos todo dia</strong><small>você acompanha cada momento</small></span></li>
+          <li><svg class="ic"><use href="#i-chat"/></svg><span><strong>Rotina combinada</strong><small>comida, passeio e soneca no horário</small></span></li>
+        </ul>
+
+        <section class="block" aria-labelledby="tit-servicos">
+          <h2 id="tit-servicos">Como a gente cuida</h2>
+          <p class="block-sub">Três jeitos de ele continuar em casa, mesmo quando você não está.</p>
+          <div class="services">
+            <button class="service" data-go-service="hospedagem">
+              <span class="service-ic tint-a"><svg class="ic"><use href="#i-bed"/></svg></span>
+              <span class="service-txt"><strong>Hospedagem</strong><small>Ele dorme fora, mas se sente em casa: sofá, carinho e rotina mantida.</small></span>
+              <span class="service-price">a partir de <strong>R$ 59</strong>/noite</span>
+            </button>
+            <button class="service" data-go-service="passeio">
+              <span class="service-ic tint-b"><svg class="ic"><use href="#i-walk"/></svg></span>
+              <span class="service-txt"><strong>Passeios</strong><small>Energia gasta no ritmo dele, com foto e trajeto pra você acompanhar.</small></span>
+              <span class="service-price">a partir de <strong>R$ 30</strong>/passeio</span>
+            </button>
+            <button class="service" data-go-service="visita">
+              <span class="service-ic tint-c"><svg class="ic"><use href="#i-home"/></svg></span>
+              <span class="service-txt"><strong>Visitas em casa</strong><small>A babá vai até ele: comida, brincadeira e companhia sem sair do lar.</small></span>
+              <span class="service-price">a partir de <strong>R$ 40</strong>/visita</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="block" aria-labelledby="tit-destaque">
+          <div class="block-head">
+            <div>
+              <h2 id="tit-destaque">Babás queridinhas</h2>
+              <p class="block-sub">Pertinho de você, em Curitiba.</p>
+            </div>
+            <a class="link-more" href="#/buscar">Ver todas →</a>
+          </div>
+          <div class="hscroll" id="featured-list"></div>
+        </section>
+
+        <section class="block" aria-labelledby="tit-como">
+          <h2 id="tit-como">Como funciona</h2>
+          <ol class="steps">
+            <li><span class="step-n">1</span><div><strong>Encontre a babá ideal</strong><p>Filtre por serviço, bairro e jeitinho do seu cachorro. Leia avaliações de outros tutores.</p></div></li>
+            <li><span class="step-n">2</span><div><strong>Combine a rotina</strong><p>Converse, conte horários, comidas, remédios e manias. Vale até uma visitinha de apresentação.</p></div></li>
+            <li><span class="step-n">3</span><div><strong>Saia sem culpa</strong><p>Receba fotos e recados durante toda a estadia — e um cachorro feliz na volta.</p></div></li>
+          </ol>
+        </section>
+
+        <section class="gallery" aria-label="Momentos Nanny Dog">
+          <figure>
+            <img src="assets/img/passeio.jpg" alt="Babá passeando com um corgi em rua arborizada" loading="lazy">
+            <figcaption>Passeio na medida certa, todo dia.</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/img/descanso.jpg" alt="Cachorro dormindo tranquilo em caminha aconchegante" loading="lazy">
+            <figcaption>Descanso com cheirinho de casa.</figcaption>
+          </figure>
+        </section>
+
+        <section class="block" aria-labelledby="tit-depo">
+          <h2 id="tit-depo">Quem já saiu tranquilo</h2>
+          <div class="quotes">
+            <blockquote>
+              <p>“A Mel é ansiosa e nunca tinha dormido fora. A Mariana manteve cada detalhe da rotina — voltei e ela estava no sofá como se fosse a casa dela.”</p>
+              <footer><strong>Carla encarando a primeira viagem</strong><span>tutora da Mel · Água Verde</span></footer>
+            </blockquote>
+            <blockquote>
+              <p>“Recebia foto do Thor no passeio todo dia às 7h, igualzinho ao nosso horário. Foi a primeira viagem em anos sem coração apertado.”</p>
+              <footer><strong>Rodrigo Almeida</strong><span>tutor do Thor · Batel</span></footer>
+            </blockquote>
+            <blockquote>
+              <p>“Meu velhinho toma remédio duas vezes ao dia. O Rafael cuidou de tudo e ainda mandava áudio contando como ele estava. Virou família.”</p>
+              <footer><strong>Dona Nice</strong><span>tutora do Bidu · Cabral</span></footer>
+            </blockquote>
+          </div>
+        </section>
+
+        <section class="cta-final">
+          <svg class="cta-paw"><use href="#i-paw"/></svg>
+          <h2>Pronto para sair <em>sem culpa?</em></h2>
+          <p>Sua próxima babá de confiança está a poucos toques de distância.</p>
+          <a class="btn btn-light btn-big" href="#/buscar">Encontrar uma babá</a>
+        </section>
+
+        <footer class="footer">
+          <a class="brand" href="#/inicio"><svg class="brand-mark"><use href="#i-logo"/></svg><span class="brand-name">Nanny Dog <em>.</em></span></a>
+          <p>cuidado que parece casa · Curitiba, Paraná</p>
+          <p class="footer-small">Feito com carinho para tutores e seus melhores amigos.</p>
+        </footer>
+      </div>
+    </section>
+
+    <!-- ========== TELA: BUSCAR ========== -->
+    <section class="screen" data-screen="buscar" hidden>
+      <div class="wrap">
+        <header class="page-head">
+          <h1>Babás perto de <em>você</em></h1>
+          <p><svg class="ic ic-inline"><use href="#i-pin"/></svg> Curitiba e região</p>
+        </header>
+
+        <div class="searchbar">
+          <svg class="ic"><use href="#i-search"/></svg>
+          <input id="q" type="search" inputmode="search" placeholder="Buscar por nome ou bairro…" aria-label="Buscar por nome ou bairro">
+        </div>
+
+        <div class="chips" role="group" aria-label="Filtrar por serviço" id="service-chips">
+          <button class="chip is-active" data-service="todos">Todos</button>
+          <button class="chip" data-service="hospedagem">🏠 Hospedagem</button>
+          <button class="chip" data-service="passeio">🦮 Passeios</button>
+          <button class="chip" data-service="visita">💛 Visitas</button>
+        </div>
+
+        <div class="results-head">
+          <span id="results-count"></span>
+          <label class="sort">
+            <span class="sr-only">Ordenar por</span>
+            <select id="sort">
+              <option value="rating">Melhor avaliadas</option>
+              <option value="price">Menor preço</option>
+              <option value="distance">Mais perto</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="sitter-list" id="sitter-list"></div>
+        <div class="empty" id="search-empty" hidden>
+          <svg class="empty-ic"><use href="#i-paw"/></svg>
+          <h2>Nenhuma babá por aqui… ainda</h2>
+          <p>Tente outro bairro ou limpe os filtros para ver todas as babás.</p>
+          <button class="btn btn-ghost" id="clear-filters">Limpar filtros</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TELA: PERFIL DA BABÁ ========== -->
+    <section class="screen" data-screen="baba" hidden>
+      <div id="sitter-detail"></div>
+    </section>
+
+    <!-- ========== TELA: RESERVAR ========== -->
+    <section class="screen" data-screen="reservar" hidden>
+      <div class="wrap narrow">
+        <button class="back-btn" id="booking-back"><svg class="ic"><use href="#i-back"/></svg> Voltar</button>
+        <header class="page-head"><h1>Combinar o <em>cuidado</em></h1></header>
+        <div id="booking-sitter"></div>
+
+        <form id="booking-form" novalidate>
+          <fieldset>
+            <legend>Serviço e datas</legend>
+            <label>Tipo de cuidado
+              <select id="bk-service" required></select>
+            </label>
+            <div class="field-row">
+              <label>Começa em
+                <input id="bk-start" type="date" required>
+              </label>
+              <label>Termina em
+                <input id="bk-end" type="date" required>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Quem vai ser cuidado</legend>
+            <label>Nome do cachorro
+              <input id="bk-pet" type="text" placeholder="Ex.: Mel" autocomplete="off" required>
+            </label>
+            <div class="field-row">
+              <label>Raça
+                <input id="bk-breed" type="text" placeholder="Ex.: Vira-lata caramelo" required>
+              </label>
+              <label>Porte
+                <select id="bk-size">
+                  <option value="pequeno">Pequeno (até 10 kg)</option>
+                  <option value="médio" selected>Médio (10–25 kg)</option>
+                  <option value="grande">Grande (mais de 25 kg)</option>
+                </select>
+              </label>
+            </div>
+            <label>Rotina e cuidados especiais
+              <textarea id="bk-notes" rows="4" placeholder="Horários de comida e passeio, remédios, manias, o que ele ama e o que evitar…"></textarea>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Você</legend>
+            <label>Seu nome
+              <input id="bk-name" type="text" placeholder="Seu nome" autocomplete="name" required>
+            </label>
+            <label>WhatsApp
+              <input id="bk-phone" type="tel" inputmode="tel" placeholder="(00) 00000-0000" autocomplete="tel" required>
+            </label>
+          </fieldset>
+
+          <div class="price-box" id="price-box"></div>
+          <p class="form-error" id="booking-error" role="alert"></p>
+          <button class="btn btn-primary btn-big btn-block" type="submit">Confirmar reserva</button>
+          <p class="micro">Sem cobrança agora — a babá confirma a disponibilidade com você pelo WhatsApp.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========== TELA: SUCESSO ========== -->
+    <section class="screen" data-screen="sucesso" hidden>
+      <div class="wrap narrow center-screen">
+        <span class="success-ic"><svg class="ic"><use href="#i-check"/></svg></span>
+        <h1>Reserva <em>enviada!</em></h1>
+        <p id="success-text"></p>
+        <div class="success-actions">
+          <a class="btn btn-primary btn-big" href="#/reservas">Ver minhas reservas</a>
+          <a class="btn btn-ghost btn-big" href="#/buscar">Conhecer outras babás</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TELA: MINHAS RESERVAS ========== -->
+    <section class="screen" data-screen="reservas" hidden>
+      <div class="wrap">
+        <header class="page-head">
+          <h1>Minhas <em>reservas</em></h1>
+          <p>Tudo o que você já combinou por aqui.</p>
+        </header>
+        <div id="booking-list"></div>
+        <div class="empty" id="bookings-empty" hidden>
+          <svg class="empty-ic"><use href="#i-paw"/></svg>
+          <h2>Nada por aqui ainda</h2>
+          <p>Quando você combinar um cuidado, ele aparece nesta tela.</p>
+          <a class="btn btn-primary" href="#/buscar">Encontrar uma babá</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TELA: ENTRAR / CADASTRO ========== -->
+    <section class="screen" data-screen="entrar" hidden>
+      <div class="wrap narrow">
+        <header class="page-head">
+          <h1 id="auth-title">Que bom te ver <em>de volta</em></h1>
+          <p id="auth-sub">Entre para acompanhar suas reservas e babás favoritas.</p>
+        </header>
+
+        <div class="tabs" role="tablist" aria-label="Entrar ou criar conta">
+          <button class="tab is-active" id="tab-login" role="tab" aria-selected="true">Já tenho conta</button>
+          <button class="tab" id="tab-signup" role="tab" aria-selected="false">Criar conta</button>
+        </div>
+
+        <form id="auth-form" novalidate>
+          <label id="field-name" hidden>Seu nome
+            <input id="auth-name" type="text" placeholder="Como podemos te chamar?" autocomplete="name">
+          </label>
+          <label>E-mail
+            <input id="auth-email" type="email" inputmode="email" placeholder="voce@email.com" autocomplete="email" required>
+          </label>
+          <label>Senha
+            <input id="auth-pass" type="password" placeholder="••••••••" autocomplete="current-password" required>
+          </label>
+          <p class="form-error" id="auth-error" role="alert"></p>
+          <button class="btn btn-primary btn-big btn-block" type="submit" id="auth-submit">Entrar</button>
+          <p class="micro">Versão demonstrativa: sua conta fica salva apenas neste aparelho.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========== TELA: PERFIL ========== -->
+    <section class="screen" data-screen="perfil" hidden>
+      <div class="wrap">
+        <header class="page-head"><h1>Meu <em>perfil</em></h1></header>
+        <div id="profile-box"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Barra de reserva (perfil da babá) ===== -->
+  <div class="book-bar" id="book-bar" hidden></div>
+
+  <!-- ===== Navegação inferior (mobile) ===== -->
+  <nav class="bottomnav" aria-label="Navegação">
+    <a href="#/inicio" data-nav="inicio"><svg class="ic"><use href="#i-home"/></svg><span>Início</span></a>
+    <a href="#/buscar" data-nav="buscar"><svg class="ic"><use href="#i-search"/></svg><span>Buscar</span></a>
+    <a href="#/reservas" data-nav="reservas"><svg class="ic"><use href="#i-cal"/></svg><span>Reservas</span><span class="nav-badge" id="nav-badge" hidden></span></a>
+    <a href="#/entrar" data-nav="entrar" id="bottomnav-user"><svg class="ic"><use href="#i-user"/></svg><span id="bottomnav-user-label">Entrar</span></a>
+  </nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>
