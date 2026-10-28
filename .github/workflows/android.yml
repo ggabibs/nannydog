@@ -54,7 +54,18 @@ jobs:
 
       - name: Compilar o APK
         working-directory: android
-        run: ./gradlew assembleDebug --no-daemon
+        run: ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee ../gradle.log
+
+      - name: Publicar o fim do log do Gradle (se falhar)
+        if: failure()
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          p = pathlib.Path('gradle.log')
+          lines = p.read_text(errors='replace').splitlines()[-80:] if p.exists() else ['(sem log)']
+          msg = '\n'.join(lines).replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          print(f"::error title=Log do Gradle (fim)::{msg}")
+          PY
 
       - name: Renomear o APK
         run: cp android/app/build/outputs/apk/debug/app-debug.apk NannyDog.apk
