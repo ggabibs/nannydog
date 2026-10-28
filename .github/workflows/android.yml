@@ -43,6 +43,7 @@ jobs:
         run: npm run build:www
 
       - name: Sincronizar com o Android (Capacitor)
+        shell: bash
         run: |
           npx cap --version
           npx cap sync android 2>&1 | tee cap-sync.log
@@ -54,6 +55,7 @@ jobs:
 
       - name: Compilar o APK
         working-directory: android
+        shell: bash
         run: ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee ../gradle.log
 
       - name: Publicar o fim do log do Gradle (se falhar)
