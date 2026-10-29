@@ -1,5 +1,5 @@
 /* Nanny Dog — service worker simples (cache do app para abrir rápido no celular) */
-const CACHE = 'nannydog-v3';
+const CACHE = 'nannydog-v4';
 const CORE = [
   './',
   './index.html',

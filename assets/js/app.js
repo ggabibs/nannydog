@@ -374,6 +374,14 @@ function updateNavBadge() {
 }
 
 /* ---------- Conta (demo) ---------- */
+const getStoredUser = () => store.get('user', null);
+const ADMIN_LOGIN_EMAIL = 'maria.barbosa.sales@escola.pr.gov.br';
+const getAdminApi = () => window.NannyAdmin || null;
+const hasActiveAdminSession = () => !!getAdminApi()?.isLoggedIn?.();
+const isAdminAccount = (user) => !!user && (
+  user.role === 'admin'
+  || String(user.email || '').trim().toLowerCase() === String(getAdminApi()?.email || ADMIN_LOGIN_EMAIL).toLowerCase()
+);
 let authMode = 'login';
 function setAuthMode(mode) {
   authMode = mode;
@@ -385,40 +393,93 @@ function setAuthMode(mode) {
   $('#field-name').hidden = login;
   $('#auth-title').innerHTML = login ? 'Que bom te ver <em>de volta</em>' : 'Vamos criar sua <em>conta</em>';
   $('#auth-sub').textContent = login
-    ? 'Entre para acompanhar suas reservas e babás favoritas.'
+    ? 'Entre para acompanhar suas reservas e babás favoritas. A administradora usa esta mesma tela e vai direto ao painel ADM.'
     : 'Em menos de um minuto você já pode encontrar a primeira babá.';
   $('#auth-submit').textContent = login ? 'Entrar' : 'Criar minha conta';
   $('#auth-error').textContent = '';
 }
-function handleAuth(e) {
+async function handleAuth(e) {
   e.preventDefault();
   const err = $('#auth-error');
-  const email = $('#auth-email').value.trim();
+  const submit = $('#auth-submit');
+  const email = $('#auth-email').value.trim().toLowerCase();
   const pass = $('#auth-pass').value;
   const name = $('#auth-name').value.trim();
+  err.textContent = '';
+
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { err.textContent = 'Esse e-mail parece incompleto — confere pra gente?'; return; }
   if (pass.length < 6) { err.textContent = 'A senha precisa ter pelo menos 6 caracteres.'; return; }
+
+  // Login unificado: o e-mail da administradora, usado na aba
+  // "Já tenho conta", abre o painel ADM em vez do perfil comum.
+  const adminApi = getAdminApi();
+  if (email === ADMIN_LOGIN_EMAIL || adminApi?.isEmail(email)) {
+    if (authMode !== 'login') {
+      setAuthMode('login');
+      err.textContent = 'Este é o e-mail da administradora. Entre pela aba “Já tenho conta”.';
+      return;
+    }
+    if (typeof adminApi?.login !== 'function') {
+      err.textContent = 'Não foi possível carregar o acesso ADM. Recarregue a página e tente outra vez.';
+      return;
+    }
+
+    const originalLabel = submit.textContent;
+    submit.disabled = true;
+    submit.textContent = 'Entrando no ADM…';
+    try {
+      const result = await adminApi.login(email, pass);
+      if (!result?.ok) {
+        err.textContent = 'E-mail ou senha da administradora não conferem.';
+        return;
+      }
+      store.set('user', { name: 'Maria (ADM)', email: adminApi.email, role: 'admin' });
+      $('#auth-pass').value = '';
+      syncUserUI();
+      toast('Bem-vinda ao painel ADM! 💛');
+      location.hash = '#/admin';
+      return;
+    } catch {
+      err.textContent = 'Não consegui validar o acesso ADM agora. Tente novamente.';
+      return;
+    } finally {
+      submit.disabled = false;
+      submit.textContent = originalLabel;
+    }
+  }
+
   if (authMode === 'signup' && !name) { err.textContent = 'Como podemos te chamar? Falta seu nome. 😊'; return; }
-  const displayName = authMode === 'signup' ? name : (store.get('user', {})?.email === email ? store.get('user').name : email.split('@')[0]);
-  store.set('user', { name: displayName || 'Tutor(a)', email });
+  const previousUser = getStoredUser();
+  const displayName = authMode === 'signup'
+    ? name
+    : (String(previousUser?.email || '').toLowerCase() === email && previousUser?.name ? previousUser.name : email.split('@')[0]);
+  store.set('user', { name: displayName || 'Tutor(a)', email, role: 'user' });
   syncUserUI();
   toast(authMode === 'signup' ? `Conta criada. Bem-vindo(a), ${displayName.split(' ')[0]}! 🐾` : `Olá de novo, ${displayName.split(' ')[0]}! 💛`);
   location.hash = '#/perfil';
 }
 function syncUserUI() {
-  const user = store.get('user', null);
-  const first = user ? user.name.split(' ')[0] : null;
-  $('#bottomnav-user').href = user ? '#/perfil' : '#/entrar';
-  $('#bottomnav-user').dataset.nav = user ? 'perfil' : 'entrar';
-  $('#bottomnav-user-label').textContent = user ? first : 'Entrar';
+  const user = getStoredUser();
+  const adminActive = hasActiveAdminSession();
+  const adminAccount = isAdminAccount(user);
+  const regularUser = !!user && !adminAccount;
+  const first = regularUser ? user.name.split(' ')[0] : null;
+  const href = adminActive ? '#/admin' : (regularUser ? '#/perfil' : '#/entrar');
+  const nav = adminActive ? 'admin' : (regularUser ? 'perfil' : 'entrar');
+
+  $('#bottomnav-user').href = href;
+  $('#bottomnav-user').dataset.nav = nav;
+  $('#bottomnav-user-label').textContent = adminActive ? 'ADM' : (regularUser ? first : 'Entrar');
+
   const cta = $('#topbar-cta');
-  cta.href = user ? '#/perfil' : '#/entrar';
-  cta.dataset.nav = user ? 'perfil' : 'entrar';
-  cta.textContent = user ? `Olá, ${first}` : 'Entrar';
+  cta.href = href;
+  cta.dataset.nav = nav;
+  cta.textContent = adminActive ? 'Painel ADM' : (regularUser ? `Olá, ${first}` : 'Entrar');
 }
 function renderProfile() {
-  const user = store.get('user', null);
-  if (!user) { location.hash = '#/entrar'; return; }
+  if (hasActiveAdminSession()) { location.hash = '#/admin'; return; }
+  const user = getStoredUser();
+  if (!user || isAdminAccount(user)) { location.hash = '#/entrar'; return; }
   const favs = getFavs().map(byId).filter(Boolean);
   const initials = user.name.split(' ').map((p) => p[0]).slice(0, 2).join('').toUpperCase();
   $('#profile-box').innerHTML = `
@@ -438,6 +499,7 @@ function renderProfile() {
       <button class="menu-item danger" id="logout"><svg class="ic"><use href="#i-x"/></svg> Sair da conta</button>
     </nav>`;
   $('#logout').addEventListener('click', () => {
+    getAdminApi()?.logout?.();
     store.del('user');
     syncUserUI();
     toast('Até logo! 👋');
@@ -454,8 +516,10 @@ function parseHash() {
 }
 function router() {
   const { route, param } = parseHash();
-  // Se já tem conta, "Entrar" leva direto ao perfil
-  if (route === 'entrar' && store.get('user', null)) { location.hash = '#/perfil'; return; }
+  // Com sessão ADM ativa, qualquer tentativa de abrir o login vai ao painel.
+  // Sem sessão ADM, a tela Entrar fica disponível mesmo se houver uma conta comum
+  // salva — assim a administradora consegue usar a mesma aba "Já tenho conta".
+  if (route === 'entrar' && hasActiveAdminSession()) { location.hash = '#/admin'; return; }
   current.route = route; current.param = param;
 
   $$('.screen').forEach((s) => { s.hidden = s.dataset.screen !== route; });
@@ -472,6 +536,7 @@ function router() {
   if (route === 'reservar') renderBooking(param, sessionStorage.getItem('nd_preset_service') || undefined);
   if (route === 'sucesso') renderSuccess();
   if (route === 'reservas') renderBookings();
+  if (route === 'entrar') setAuthMode('login');
   if (route === 'perfil') renderProfile();
   if (route === 'admin' && typeof renderAdmin === 'function') renderAdmin();
 
