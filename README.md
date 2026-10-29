@@ -20,7 +20,7 @@ Favoritos ❤️, reservas e a conta ficam salvos no próprio aparelho (`localSt
 
 ## 🔐 Área do administrador
 
-Acesse **`#/admin`** (ou o link "Área do administrador" no rodapé) e entre com o e-mail da administradora, `maria.barbosa.sales@escola.pr.gov.br`, e a senha definida por ela (a senha **não** está escrita no código — apenas o hash SHA-256 dela, em `assets/js/admin.js`).
+Entre pela tela normal **Entrar → aba “Já tenho conta”** (`#/entrar`) com o e-mail da administradora, `maria.barbosa.sales@escola.pr.gov.br`, e a senha definida por ela. O app reconhece a conta ADM e abre o painel automaticamente; o atalho antigo `#/admin` também redireciona para esse mesmo login. A senha **não** está escrita no código — apenas o hash SHA-256 dela, em `assets/js/admin.js`.
 
 No painel dá para:
 
